@@ -1,0 +1,51 @@
+<h3 style="text-align: center">
+  Bài tập Structural Directives - Quản lý sản phẩm
+</h3>
+<div class="container">
+  <h4 class="my-3 py-">
+    Quản lý danh mục sản phẩm
+  </h4>
+  <input class="mx-3" type="text" placeholder="MaSP" #tsMaSanPham />
+  <input class="mx-3" type="text" placeholder="TenSP" #tsTenSanPham />
+  <input class="mx-3" type="text" placeholder="Gia" #tsGiaSanPham />
+  <button
+    class="btn btn-success mx-3"
+    (click)="
+      themSanPham(tsMaSanPham.value, tsTenSanPham.value, tsGiaSanPham.value)
+    "
+  >
+    Thêm sản phẩm
+  </button>
+</div>
+<div class="container">
+  <h4 class="my-3">Danh mục sản phẩm</h4>
+  <div class="container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Mã sản phẩm</th>
+          <th>Tên sản phẩm</th>
+          <th>Giá</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let sanPham of arrSanPham
+              | paginate: { itemsPerPage: 5, currentPage: p }
+          "
+        >
+          <td #idSP>{{ sanPham.MaSP }}</td>
+          <td>{{ sanPham.TenSP }}</td>
+          <td>{{ sanPham.Gia }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="xoaSanPham(idSP.value)">
+              Xóa sản phẩm
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+</div>
